@@ -4,7 +4,7 @@ int main(void)
 {
     char word[10], letter;
     int is_found = 0;
-    printf("Enter string: "); scanf("%s", &word);
+    printf("Enter string: "); scanf("%s", word);
     printf("Enter string: "); scanf("%s", &letter);
     for(int i = 0; i < 10; i++)
     {
@@ -16,10 +16,10 @@ int main(void)
     }
     if(is_found)
     {
-    printf("End");
+        printf("End\n");
     }
     else
     {
-    printf("Not found");
+        printf("Not found\n");
     }
 }

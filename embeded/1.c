@@ -2,63 +2,172 @@
 #include <stdlib.h>
 #include <time.h>
 
-void diagonal(int *array, int n);
-void copy(int *array[], int *c_array[]);
+void diagonal(int n, float array[n][n]);
+void shape_1(int n, float array[n][n]);
+void shape_2(int n, float array[n][n]);
+void shape_3(int n, float array[n][n]);
+
 
 int main(void)
 {
     srand(time(0));
-    const int size;
+    int size;
     printf("Enter size: "); scanf("%d", &size);
-    int B[size][size];
+    float B[size][size];
     for(int i = 0; i < size; i++)
     {
         for(int j = 0; j < size; j++)
         {
-            B[i][j] = rand();
-            printf("%d  ", B[i][j]);
+            B[i][j] = rand() / 100000000.0;
+            printf("%.2f  ", B[i][j]);
         }
         printf("\n");
     }
-    diagonal(B, size);
+    diagonal(size, B);
+    shape_1(size, B);
+    shape_2(size, B);
+    shape_3(size, B);
 }
 
-void diagonal(int *array, int n)
+void diagonal(int n, float array[n][n])
 {
-    int nums[n][n], max = nums[0][0], min = nums[0][0];
-    copy(array, nums);
-    int start = 9;
+    float max = array[0][0], min = array[0][0];
+    int start = n - 1;
     for(int i = 0; i < n; i++)
     {
         for(int j = 0; j < n; j++)
         {
-            if(j == start)
+            if(j >= start)
             {
-                if(nums[i][j] > max)
+                if(array[i][j] > max)
                 {
-                    max = nums[i][j];
+                    max = array[i][j];
                 }
-                else if(nums[0] < min)
+                else if(array[i][j] < min)
                 {
-                    min = nums[0][0];
+                    min = array[i][j];
+                }
+                printf("%.2f  ", array[i][j]);
+            }
+            else
+            {
+                printf("0  ");
+            }
+        }
+        start--;
+        printf("\n");
+    }
+    printf("MAX: %.2f\n", max);
+    printf("MIN: %.2f\n", min);
+}
+
+void shape_1(int n, float array[n][n])
+{
+    float max = array[0][0], min = array[0][0];
+    int start = 0;
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j < n; j++)
+        {
+            if(j >= start)
+            {
+                if(array[i][j] > max)
+                {
+                    max = array[i][j];
+                }
+                else if(array[i][j] < min)
+                {
+                    min = array[i][j];
+                }
+                printf("%.2f  ", array[i][j]);
+            }
+            else
+            {
+                printf("0  ");
+            }
+        }
+        if(i < n / 2) start++;
+        else start--;
+        printf("\n");
+    }
+    printf("MAX: %.2f\n", max);
+    printf("MIN: %.2f\n", min);
+}
+
+void shape_2(int n, float array[n][n])
+{
+    float max = array[0][0], min = array[0][0];
+    int start = n/2, row_start = n/2, row_end = n/2+1;
+    for(int i = 0; i < n; i++)
+    {
+        for(int j = 0; j < n; j++)
+        {
+            if(i >= start)
+            {
+                if(j >= row_start && j < row_end)
+                {
+                    if(array[i][j] > max)
+                    {
+                        max = array[i][j];
+                    }
+                    else if(array[i][j] < min)
+                    {
+                        min = array[i][j];
+                    }
+                    printf("%.2f  ", array[i][j]);
+                }
+                else
+                {
+                    printf("0  ");
                 }
             }
             else
             {
-                nums[i][j] = 0;
+                printf("0  ");
             }
         }
+        if(i >= n / 2) row_start--, row_end++;
+        printf("\n");
     }
+    printf("MAX: %.2f\n", max);
+    printf("MIN: %.2f\n", min);
 }
 
-void copy(int *array[], int *c_array[])
+void shape_3(int n, float array[n][n])
 {
-    int size = sizeof(array) / sizeof(int) / 2;
-    for(int i = 0; i < size; i++)
+    float max = array[0][0], min = array[0][0];
+    int start = 0, row_start = n/2, row_end = n;
+    for(int i = 0; i < n; i++)
     {
-        for(int j = 0; j < size; j++)
+        for(int j = 0; j < n; j++)
         {
-            c_array[i][j] = array[i][j]; 
+            if(i >= start)
+            {
+                if(j >= row_start && j < row_end)
+                {
+                    if(array[i][j] > max)
+                    {
+                        max = array[i][j];
+                    }
+                    else if(array[i][j] < min)
+                    {
+                        min = array[i][j];
+                    }
+                    printf("%.2f  ", array[i][j]);
+                }
+                else
+                {
+                    printf("0  ");
+                }
+            }
+            else
+            {
+                printf("0  ");
+            }
         }
+        if(i == n / 2-1) row_start = 0, row_end = n / 2;
+        printf("\n");
     }
+    printf("MAX: %.2f\n", max);
+    printf("MIN: %.2f\n", min);
 }

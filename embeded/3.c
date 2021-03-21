@@ -9,6 +9,9 @@ int main(void)
     printf("Enter number: "); scanf("%d", &num);
     if(num <= 16777215)
     {
+        decToHexa(num);
+        decToBin(num);
+        printf("Result:\n");
         int high = num & m_high;
         int low = num & m_min;
         int mid = num & m_mid;
